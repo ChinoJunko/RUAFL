@@ -1,0 +1,38 @@
+Determining if the function fseek64 exists failed with the following output:
+Change Dir: /home/chb/RUAFL/xpdf-4.01.01/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_884a5/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_884a5.dir/build.make CMakeFiles/cmTC_884a5.dir/build
+gmake[1]: Entering directory '/home/chb/RUAFL/xpdf-4.01.01/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_884a5.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fseek64 -o CMakeFiles/cmTC_884a5.dir/CheckFunctionExists.c.o -c /usr/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_884a5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_884a5.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=fseek64 -rdynamic CMakeFiles/cmTC_884a5.dir/CheckFunctionExists.c.o -o cmTC_884a5 
+/usr/bin/ld: CMakeFiles/cmTC_884a5.dir/CheckFunctionExists.c.o: in function `main':
+CheckFunctionExists.c:(.text+0x14): undefined reference to `fseek64'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_884a5.dir/build.make:99: cmTC_884a5] Error 1
+gmake[1]: Leaving directory '/home/chb/RUAFL/xpdf-4.01.01/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_884a5/fast] Error 2
+
+
+
+Determining if the function _fseeki64 exists failed with the following output:
+Change Dir: /home/chb/RUAFL/xpdf-4.01.01/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_9ea06/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_9ea06.dir/build.make CMakeFiles/cmTC_9ea06.dir/build
+gmake[1]: Entering directory '/home/chb/RUAFL/xpdf-4.01.01/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9ea06.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=_fseeki64 -o CMakeFiles/cmTC_9ea06.dir/CheckFunctionExists.c.o -c /usr/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9ea06
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ea06.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=_fseeki64 -rdynamic CMakeFiles/cmTC_9ea06.dir/CheckFunctionExists.c.o -o cmTC_9ea06 
+/usr/bin/ld: CMakeFiles/cmTC_9ea06.dir/CheckFunctionExists.c.o: in function `main':
+CheckFunctionExists.c:(.text+0x14): undefined reference to `_fseeki64'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_9ea06.dir/build.make:99: cmTC_9ea06] Error 1
+gmake[1]: Leaving directory '/home/chb/RUAFL/xpdf-4.01.01/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_9ea06/fast] Error 2
+
+
+
