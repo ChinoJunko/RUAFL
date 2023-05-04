@@ -51,7 +51,7 @@ void DoubleFreeChecker::reportBug(ProgSlice* slice)
                         << slice->evalFinalCond() << "\n";
         if (cs->getCallSite()->getSourceLoc().size() > 1)
         {
-            BugLocation bl(cs->getCallSite()->getSourceLoc());
+            BugLocation bl(cs->getCallSite()->getSourceLoc(), 3);
             blSetMap->insert(bl);
         }
         slice->evalFinalCond(blSetMap);
@@ -78,7 +78,7 @@ void DoubleFreeChecker::exportBug()
         {
             for (auto& bl : *(fileNametoBLSet.second))
             {
-                file << bl.getLine() << " " << bl.getColumn() << std::endl;
+                file << bl.getLine() << " " << bl.getColumn() << " " << bl.getDistance() << std::endl;
             }
         }
         file.close();

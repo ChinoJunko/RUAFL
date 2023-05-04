@@ -7,11 +7,11 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/chb/RUAFL/xpdf-4.01.01 -I/home/chb/RUAFL/xpdf-4.01.01/build
 
-C_FLAGS = -O3 -Wall -fPIC
+C_FLAGS = 
 
 CXX_DEFINES = 
 
 CXX_INCLUDES = -I/home/chb/RUAFL/xpdf-4.01.01 -I/home/chb/RUAFL/xpdf-4.01.01/build
 
-CXX_FLAGS = -std=c++11 -O3 -Wall -fPIC
+CXX_FLAGS = -std=c++11
 

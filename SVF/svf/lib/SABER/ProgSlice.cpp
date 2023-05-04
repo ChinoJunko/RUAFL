@@ -199,8 +199,17 @@ std::string ProgSlice::evalFinalCond() const
 bool ProgSlice::evalFinalCond(BLSetMap* blSetMap) const
 {
     NodeBS elems = pathAllocator->exactCondElem(finalCond);
+    u32_t index = 0, total = 0, dist = 0;
     for(NodeBS::iterator it = elems.begin(), eit = elems.end(); it!=eit; ++it)
-    {
+        total++;
+    for(NodeBS::iterator it = elems.begin(), eit = elems.end(); it!=eit; ++it)
+    {   
+        if(index<total/3)
+            dist = 1;
+        else if(index<2*total/3)
+            dist = 2;
+        else
+            dist = 3;
         const SVFBasicBlock* bb = pathAllocator->getCondSuccBB(*it);
         std::string loc = bb->getSourceLoc();
         if(loc.size()==18){
@@ -208,7 +217,7 @@ bool ProgSlice::evalFinalCond(BLSetMap* blSetMap) const
             for(auto& I : bb->getInstructionList()){        
                 loc = I->getSourceLoc();
                 if(!loc.empty()){
-                    BugLocation bl(loc);
+                    BugLocation bl(loc, dist);
                     blSetMap->insert(bl);
                     hasDebugInfo = true;
                     break;
@@ -216,12 +225,12 @@ bool ProgSlice::evalFinalCond(BLSetMap* blSetMap) const
             }
             if(!hasDebugInfo){
                 errMsg("not Debuginfo BaseBlock!");
-                return false;
             }
         }else{
-            BugLocation bl(loc);
+            BugLocation bl(loc, dist);
             blSetMap->insert(bl);
         }
+        index++;
     }
     return true;
 }

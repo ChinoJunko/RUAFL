@@ -13,27 +13,29 @@ private:
     u32_t line;
     u32_t column;
     std::string file;
-
+    u32_t distance;
 public:
-    BugLocation(u32_t ln, u32_t cl, std::string name)
-        : line(ln), column(cl), file(name)
+    BugLocation(u32_t ln, u32_t cl, std::string name, u32_t dist)
+        : line(ln), column(cl), file(name), distance(dist)
     {
     }
 
-    BugLocation(const std::string& srcLoc)
+    BugLocation(const std::string& srcLoc, u32_t dist)
     {
         char filename[256];
         sscanf(srcLoc.c_str(), "%*[^0-9]%u  cl: %u  fl: %255s } }", &line,
                &column, filename);
         file.append(filename);
+        distance = dist;
     }
 
-    BugLocation(const char* s)
+    BugLocation(const char* s, u32_t dist)
     {
         char filename[256];
         sscanf(s, "%*[^0-9]%u  cl: %u  fl: %255s } }", &line,
                &column, filename);
         file.append(filename);
+        distance = dist;
     }
 
     inline u32_t getLine() const
@@ -49,6 +51,11 @@ public:
     inline std::string getFile() const
     {
         return file;
+    }
+
+    inline u32_t getDistance() const
+    {
+        return distance;
     }
 
     bool operator==(const BugLocation& bl)

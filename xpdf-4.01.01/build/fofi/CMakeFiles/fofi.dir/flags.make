@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/chb/RUAFL/xpdf-4.01.01 -I/home/chb/RUAFL/xpdf-4.01.01/build -I/home/chb/RUAFL/xpdf-4.01.01/goo
 
-CXX_FLAGS = -std=c++11 -O3 -Wall -fPIC
+CXX_FLAGS = -std=c++11
 
