@@ -43,7 +43,6 @@ void DoubleFreeChecker::reportBug(ProgSlice* slice)
     {
         const SVFGNode* src = slice->getSource();
         const CallICFGNode* cs = getSrcCSID(src);
-
         SVFUtil::errs() << bugMsg2("\t Double Free :")
                         << " memory allocation at : ("
                         << cs->getCallSite()->getSourceLoc() << ")\n";
@@ -53,8 +52,45 @@ void DoubleFreeChecker::reportBug(ProgSlice* slice)
         {
             BugLocation bl(cs->getCallSite()->getSourceLoc(), 3);
             blSetMap->insert(bl);
+            slice->evalFinalCond(blSetMap);
+            if (blSetMap->getFileBugLocSet(bl.getFile())->size() <
+                getPAG()->getICFG()->getTotalNodeNum() / 200)
+            {
+                for (auto& bb :
+                     cs->getCallSite()->getParent()->getPredecessors())
+                {
+                    std::string loc = bb->getSourceLoc();
+                    if (loc.size() == 18)
+                    {
+                        bool hasDebugInfo = false;
+                        for (auto& I : bb->getInstructionList())
+                        {
+                            loc = I->getSourceLoc();
+                            if (!loc.empty())
+                            {
+                                BugLocation bl(loc, 1);
+                                blSetMap->insert(bl);
+                                hasDebugInfo = true;
+                                break;
+                            }
+                        }
+                        if (!hasDebugInfo)
+                        {
+                            errMsg("not Debuginfo BaseBlock!");
+                        }
+                    }
+                    else
+                    {
+                        BugLocation bl(loc, 1);
+                        blSetMap->insert(bl);
+                    }
+                }
+            }
         }
-        slice->evalFinalCond(blSetMap);
+        else
+        {
+            slice->evalFinalCond(blSetMap);
+        }
     }
     if (Options::ValidateTests())
         testsValidation(slice);
@@ -78,7 +114,8 @@ void DoubleFreeChecker::exportBug()
         {
             for (auto& bl : *(fileNametoBLSet.second))
             {
-                file << bl.getLine() << " " << bl.getColumn() << " " << bl.getDistance() << std::endl;
+                file << bl.getLine() << " " << bl.getColumn() << " "
+                     << bl.getDistance() << std::endl;
             }
         }
         file.close();

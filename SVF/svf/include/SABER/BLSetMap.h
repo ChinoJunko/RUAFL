@@ -24,7 +24,7 @@ public:
         return map[filename]->insert(bl).second; 
     }
 
-    std::set<BugLocation>* getFileBugLocSet(std::string& filename){
+    std::set<BugLocation>* getFileBugLocSet(const std::string& filename){
         if(map.find(filename)==map.end()){
             return nullptr;
         }

@@ -16,3 +16,19 @@ AFL_INST_RATIO=10 AFL_USE_ASAN=1 make clean all
 cmake -DCMAKE_BUILD_TYPE=Debug .. -DCMAKE_INSTALL_PREFIX=$HOME/RUAFL/xpdf-obj -DCMAKE_CXX_COMPILER=$HOME/RUAFL/AFL/afl-clang-fast++
 AFL_INST_RATIO=10 AFL_USE_ASAN=1 BUGLOC_SRC=$HOME/RUAFL/exam/bugLoc/ make clean all
 
+
+CC=wllvm CXX=wllvm++ CFLAGS=--debug CXXFLAGS=--debug ./configure --prefix="$HOME/gnu-coreutils/cu-obj"
+make clean all
+make install
+
+CC=$HOME/RUAFL/AFL/afl-clang-fast CXX=$HOME/RUAFL/AFL/afl-clang-fast++ CFLAGS=-O0 CXXFLAGS=-O0 ./configure --prefix="$HOME/gnu-coreutils/cu-obj"
+BUGLOC_SRC=$HOME/RUAFL/exam5/bugLoc AFL_USE_ASAN=1 AFL_INST_RATIO=10 make clean all
+AFL_USE_ASAN=1 AFL_INST_RATIO=10 make install
+
+CC=$HOME/AFL-master/afl-clang-fast CXX=$HOME/AFL-master/afl-clang-fast++ CFLAGS=-O0 CXXFLAGS=-O0 ./configure --prefix="$HOME/gnu-coreutils/cu-obj"
+AFL_USE_ASAN=1 AFL_INST_RATIO=10 make clean all
+AFL_USE_ASAN=1 AFL_INST_RATIO=10 make install
+
+../../../AFL-master/afl-fuzz -i in -o out -m none -- ./mxmldoc @@
+../../AFL/afl-fuzz -i in -o out -m none -- ./tr @@ @@ < in/test.txt
+../../../AFL-master/afl-fuzz -i in -o out -m none -- ./tr @@ @@ < in/test.txt

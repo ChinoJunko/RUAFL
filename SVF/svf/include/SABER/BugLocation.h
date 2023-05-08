@@ -14,6 +14,7 @@ private:
     u32_t column;
     std::string file;
     u32_t distance;
+
 public:
     BugLocation(u32_t ln, u32_t cl, std::string name, u32_t dist)
         : line(ln), column(cl), file(name), distance(dist)
@@ -25,16 +26,25 @@ public:
         char filename[256];
         sscanf(srcLoc.c_str(), "%*[^0-9]%u  cl: %u  fl: %255s } }", &line,
                &column, filename);
+
         file.append(filename);
+        if (file.find('/') != std::string::npos)
+        {
+            file = file.substr(file.find_last_of('/') + 1);
+        }
         distance = dist;
     }
 
     BugLocation(const char* s, u32_t dist)
     {
         char filename[256];
-        sscanf(s, "%*[^0-9]%u  cl: %u  fl: %255s } }", &line,
-               &column, filename);
+        sscanf(s, "%*[^0-9]%u  cl: %u  fl: %255s } }", &line, &column,
+               filename);
         file.append(filename);
+        if (file.find('/') != std::string::npos)
+        {
+            file = file.substr(file.find_last_of('/') + 1);
+        }
         distance = dist;
     }
 

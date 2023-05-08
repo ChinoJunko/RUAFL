@@ -210,8 +210,14 @@ bool ProgSlice::evalFinalCond(BLSetMap* blSetMap) const
             dist = 2;
         else
             dist = 3;
+        const SVFInstruction* tinst = pathAllocator->getCondInst(*it);
+        std::string loc = tinst->getSourceLoc();
+        if(loc.size()>1){
+            BugLocation bl(loc, dist);
+            blSetMap->insert(bl);
+        }
         const SVFBasicBlock* bb = pathAllocator->getCondSuccBB(*it);
-        std::string loc = bb->getSourceLoc();
+        loc = bb->getSourceLoc();
         if(loc.size()==18){
             bool hasDebugInfo = false;
             for(auto& I : bb->getInstructionList()){        

@@ -1,1 +1,1 @@
-typedef enum''{d{/**/
+typedef enum''{d{//*

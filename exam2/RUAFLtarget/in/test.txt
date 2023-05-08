@@ -1,1 +1,1 @@
-typ
+typedef enum
