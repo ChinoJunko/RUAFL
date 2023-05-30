@@ -1,0 +1,1 @@
+config:x86:x86_64:generic:linux:clang version 12.0.0 (https%3a//github.com/llvm/llvm-project/ b978a93635b584db380274d7c8963c73989944a1):--cc=/home/chb/RUAFL/ReZZan/AFL/afl-clang-fast --cxx=/home/chb/RUAFL/ReZZan/AFL/afl-clang-fast++ --disable-shared

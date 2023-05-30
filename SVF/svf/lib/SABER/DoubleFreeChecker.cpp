@@ -32,6 +32,7 @@
 #include "Util/Options.h"
 #include "Util/SVFUtil.h"
 #include "fstream"
+#include "hash"
 
 using namespace SVF;
 using namespace SVFUtil;
@@ -50,7 +51,7 @@ void DoubleFreeChecker::reportBug(ProgSlice* slice)
                         << slice->evalFinalCond() << "\n";
         if (cs->getCallSite()->getSourceLoc().size() > 1)
         {
-            BugLocation bl(cs->getCallSite()->getSourceLoc(), 3);
+            BugLocation bl(cs->getCallSite()->getSourceLoc(), hash(slice), 3);
             blSetMap->insert(bl);
             slice->evalFinalCond(blSetMap);
             if (blSetMap->getFileBugLocSet(bl.getFile())->size() <
